@@ -1,0 +1,71 @@
+### Variables
+@base = http://localhost:8080
+
+### 1. Iniciar sesión (mesero)
+POST {{base}}/api/auth/login
+Content-Type: application/json
+
+{ "username": "mesero1", "password": "123456" }
+
+### 2. Ver mesas y carta
+GET {{base}}/api/mesas
+
+###
+GET {{base}}/api/productos?soloDisponibles=true
+
+### 3. Abrir pedido en la mesa 1 (ids de la primera carga: mesero1 = 1)
+POST {{base}}/api/pedidos
+Content-Type: application/json
+
+{ "idMesa": 1, "idMesero": 1 }
+
+### 4. Agregar productos (producto 1 = Ceviche clásico, 3 = Lomo saltado)
+POST {{base}}/api/pedidos/1/detalles
+Content-Type: application/json
+
+{ "idProducto": 1, "cantidad": 2, "observacion": "sin ají" }
+
+###
+POST {{base}}/api/pedidos/1/detalles
+Content-Type: application/json
+
+{ "idProducto": 3, "cantidad": 1 }
+
+### 5. Cocina avanza el pedido (cocinero1 = 3): a EN_PREPARACION
+POST {{base}}/api/pedidos/1/avanzar
+Content-Type: application/json
+
+{ "idCocinero": 3 }
+
+### 5b. Cocina avanza de nuevo: a LISTO
+POST {{base}}/api/pedidos/1/avanzar
+Content-Type: application/json
+
+{ "idCocinero": 3 }
+
+### 6. El mesero sirve el pedido
+PATCH {{base}}/api/pedidos/1/estado
+Content-Type: application/json
+
+{ "estado": "SERVIDO" }
+
+### 7. El cajero cobra (cajero1 = 4): descuenta stock y libera la mesa
+POST {{base}}/api/pedidos/1/pago
+Content-Type: application/json
+
+{ "idCajero": 4, "metodoPago": "EFECTIVO" }
+
+### 8. Verificar stock actualizado y estado de mesas
+GET {{base}}/api/insumos
+
+###
+GET {{base}}/api/mesas
+
+### 9. Reporte de ventas por turno y producto (ajusta las fechas)
+GET {{base}}/api/reportes/ventas?desde=2026-10-01&hasta=2026-10-31
+
+### Error esperado: cobrar un pedido que no fue servido (HTTP 409)
+POST {{base}}/api/pedidos/1/pago
+Content-Type: application/json
+
+{ "idCajero": 4, "metodoPago": "EFECTIVO" }

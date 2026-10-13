@@ -1,0 +1,63 @@
+# Target & Compilación
+target/
+*.class
+
+# Logs
+*.log
+logs/
+
+# Entornos y Secretos
+.env
+.env.*
+*.env
+application-local.properties
+application-local.yml
+application-secret.properties
+application-secret.yml
+*.key
+*.pem
+*.pfx
+*.p12
+
+# Maven
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+release.properties
+dependency-reduced-pom.xml
+buildNumber.properties
+.mvn/timing.properties
+.mvn/wrapper/maven-wrapper.jar
+
+# IntelliJ IDEA
+.idea/
+*.iml
+*.iws
+*.ipr
+out/
+
+# Eclipse
+.apt_generated
+.apt_generated_tests
+.classpath
+.factorypath
+.project
+.settings/
+.springBeans
+.sts4-cache/
+
+# NetBeans
+nbproject/private/
+nbbuild/
+dist/
+nbproject/load-path.properties
+nbproject/genfiles.properties
+
+# Visual Studio Code
+.vscode/
+
+# Sistema Operativo
+.DS_Store
+Thumbs.db
+desktop.ini
